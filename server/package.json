@@ -1,7 +1,7 @@
 {
-  "name": "expensify-v4",
+  "name": "moviebuddy-v4",
   "version": "1.0.0",
-  "description": "",
+  "description": "just having fun!!!!!",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -9,7 +9,7 @@
     "client": "npm start --prefix ../client",
     "dev": "concurrently \"npm run server\" \"npm run client\" "
   },
-  "author": "",
+  "author": "JLab",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
