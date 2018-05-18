@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
 import store from "./store";
+import AppRouter from './router/AppRouter';
 
-const WelcomePage = () => <h1>Welcome to Movie Buddy</h1>;
 const Loading = () => <h1>Loading....</h1>;
 const root = document.getElementById("root");
 const app = (
   <Provider store={store()}>
-    <WelcomePage />
+    <AppRouter />
   </Provider>
 );
 let hasRendered = false;
@@ -22,6 +22,16 @@ const renderApp = () => {
 
 ReactDOM.render(<Loading />, root);
 
-setTimeout(() => {
+const user = JSON.parse(localStorage.getItem('user'));
+
+if (user) {
+  // log the user in with user._id, user.token
+  // do some other api calls to rehydrate the store
+  console.log('user: ', user);
   renderApp();
-}, 1000);
+} else {
+  // no user 
+  renderApp();
+}
+
+
