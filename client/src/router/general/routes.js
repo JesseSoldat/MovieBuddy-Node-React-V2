@@ -1,5 +1,4 @@
 import React from "react";
-import { Route } from "react-router-dom";
 
 import PublicRoute from "../PublicRoute";
 import PrivateRoute from "../PrivateRoute";

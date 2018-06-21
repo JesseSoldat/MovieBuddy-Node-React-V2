@@ -15,11 +15,11 @@ const app = (
     <AppRouter />
   </Provider>
 );
-let hasRendered = false;
+let hasRenderedOnce = false;
 const renderApp = () => {
-  if (!hasRendered) {
+  if (!hasRenderedOnce) {
     ReactDOM.render(app, root);
-    hasRendered = true;
+    hasRenderedOnce = true;
   }
 };
 
@@ -34,7 +34,7 @@ if (user) {
     _id,
     token
   });
-  console.log("user: ", user);
+  // console.log("user: ", user);
   renderApp();
 } else {
   // no user

@@ -4,9 +4,9 @@ import { Route, Redirect } from "react-router-dom";
 
 import Navbar from "../components/NavBar";
 
-const PrivateRoute = ({ isAuth, component: Component, ...restOfProps }) => (
+const PrivateRoute = ({ isAuth, component: Component, ...rest }) => (
   <Route
-    {...restOfProps}
+    {...rest}
     component={props =>
       isAuth ? (
         <div>
