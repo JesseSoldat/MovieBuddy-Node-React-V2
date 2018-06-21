@@ -5,8 +5,8 @@ import Register from "../../pages/auth/Register";
 import Login from "../../pages/auth/Login";
 
 const authRoutes = [
-  <PublicRoute key="register" to="/register" component={Register} exact />,
-  <PublicRoute key="login" to="/login" component={Login} exact />
+  <PublicRoute key="register" path="/register" component={Register} exact />,
+  <PublicRoute key="login" path="/login" component={Login} exact />
 ];
 
 export default authRoutes;
