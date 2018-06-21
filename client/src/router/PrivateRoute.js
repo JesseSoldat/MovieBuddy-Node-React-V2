@@ -2,19 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
-import NavBar from "../components/NavBar";
+import Navbar from "../components/NavBar";
 
-const PublicRoute = ({ isAuth, component: Component, ...rest }) => (
+const PrivateRoute = ({ isAuth, component: Component, ...restOfProps }) => (
   <Route
-    {...rest}
+    {...restOfProps}
     component={props =>
       isAuth ? (
-        <Redirect to="/dashboard" />
-      ) : (
         <div>
-          <NavBar />
+          <Navbar />
           <Component {...props} />
         </div>
+      ) : (
+        <Redirect to="/login" />
       )
     }
   />
@@ -24,4 +24,4 @@ const mapStateToProps = ({ auth }) => ({
   isAuth: !!auth._id
 });
 
-export default connect(mapStateToProps)(PublicRoute);
+export default connect(mapStateToProps)(PrivateRoute);

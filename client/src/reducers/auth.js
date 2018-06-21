@@ -1,17 +1,25 @@
+import { REGISTER, LOGIN } from "../actions/auth";
 const initialState = { _id: null, token: null };
 
 export default (state = initialState, action) => {
   const { _id, token } = action;
-  
+
   switch (action.type) {
-    case "REGISTER":
+    case REGISTER:
       return {
         ...state,
         _id,
         token
       };
-  
+
+    case LOGIN:
+      return {
+        ...state,
+        _id,
+        token
+      };
+
     default:
       return state;
   }
-}
+};
