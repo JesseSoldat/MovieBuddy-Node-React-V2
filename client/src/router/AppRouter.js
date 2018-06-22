@@ -8,8 +8,7 @@ import searchRoutes from "./search/routes";
 import favoritesRoutes from "./favorites/routes";
 import detailsRoutes from "./details/routes";
 import NotFound from "../pages/general/NotFound";
-import PrivateRoute from "./PrivateRoute";
-import MovieDetails from "../pages/details/MovieDetails";
+
 export const history = createHistory();
 
 const AppRouter = () => (

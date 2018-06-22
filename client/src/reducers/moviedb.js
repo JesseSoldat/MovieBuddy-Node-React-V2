@@ -42,7 +42,9 @@ export default (
     case ONE_DB_MOVIE:
       return {
         ...state,
-        movie
+        movie,
+        loading,
+        error
       };
 
     default:

@@ -7,8 +7,21 @@ class Card extends Component {
   renderImage = image =>
     image ? `http://image.tmdb.org/t/p/w500/${image}` : "/images/noFilm.png";
 
+  renderBtn = (parent, id, add, remove) =>
+    parent === "search" ? (
+      <a href="" className="btn btn-primary" onClick={e => add(id, e)}>
+        <span className="mr-1">Favorite</span>
+        <i className="fas fa-heart" />
+      </a>
+    ) : (
+      <a href="" className="btn btn-danger" onClick={e => remove(id, e)}>
+        <span className="mr-1">Trash</span>
+        <i className="fas fa-trash" />
+      </a>
+    );
+
   render() {
-    const { id, image, title, add } = this.props;
+    const { id, image, title, parent, add, remove } = this.props;
     return (
       <div className="card ml-auto mr-auto mb-3" style={{ width: "270px" }}>
         <img
@@ -17,17 +30,16 @@ class Card extends Component {
           src={this.renderImage(image)}
           alt="poster"
         />
-        <div className="card-body">
-          <h6 className="card-title">{truncateText(title, 24)}</h6>
+        <div className="card-body pb-0">
+          <h6 className="card-title text-center">{truncateText(title, 24)}</h6>
         </div>
 
-        <div className="card-body">
-          <Link to={`/movie-details/${id}`} className="card-link">
-            Details
+        <div className="card-body pt-1 d-flex flex-row justify-content-around">
+          <Link to={`/movie-details/${id}`} className="btn btn-secondary">
+            <span className="mr-1">Details</span>
+            <i className="fas fa-clipboard-list" />
           </Link>
-          <a href="" className="card-link" onClick={e => add(id, e)}>
-            Favorite
-          </a>
+          {this.renderBtn(parent, id, add, remove)}
         </div>
       </div>
     );

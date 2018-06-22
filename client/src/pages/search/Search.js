@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { startGetMovies } from "../../actions/moviedb";
+import SearchBox from "../../components/SearchBox";
 import Card from "../../components/Card";
 
 class Search extends Component {
-  componentDidMount() {
-    this.props.startGetMovies("xmen");
-  }
+  componentDidMount() {}
+
+  searchMovies = text => {
+    this.props.startGetMovies(text);
+  };
 
   addToFavorites = (id, e) => {
     e.preventDefault();
@@ -23,18 +26,17 @@ class Search extends Component {
           id={id}
           image={poster_path}
           title={title}
+          parent="search"
           add={this.addToFavorites}
         />
       );
     });
 
   render() {
-    const { movies } = this.props;
-    console.log(movies);
-
     return (
       <div className="container">
-        <h1>Search</h1>
+        <h1 className="text-center mb-3 mt-3 display-4">Search Movies</h1>
+        <SearchBox searchMovies={this.searchMovies} />
         <div className="d-flex flex-wrap">{this.renderCards()}</div>
       </div>
     );

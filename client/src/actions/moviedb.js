@@ -39,3 +39,28 @@ export const startGetMovies = (search = "") => dispatch => {
     dispatch(getMovies(movies, search));
   });
 };
+
+export const getMovie = (movie = null) => ({
+  type: ONE_DB_MOVIE,
+  movie,
+  loading: false,
+  error: null
+});
+
+export const startGetMovie = id => dispatch => {
+  dispatch({ type: DB_MOVIE_LOADING, loading: true });
+  const url = `${baseUrl}movie/${id}?${apiKey}`;
+
+  jsonp(url, null, (err, data) => {
+    if (err) {
+      return dispatch({
+        type: DB_MOVIE_ERR,
+        loading: false,
+        error: errMessage("get", "movie")
+      });
+    }
+
+    localStorage.setItem("movie", JSON.stringify(data));
+    dispatch(getMovie(data));
+  });
+};
