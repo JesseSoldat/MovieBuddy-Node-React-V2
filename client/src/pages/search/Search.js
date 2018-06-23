@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { startGetMovies } from "../../actions/moviedb";
+import { startAddToFavorites } from "../../actions/favorites";
 import SearchBox from "../../components/SearchBox";
 import Card from "../../components/Card";
 
@@ -12,9 +13,9 @@ class Search extends Component {
     this.props.startGetMovies(text);
   };
 
-  addToFavorites = (id, e) => {
+  addToFavorites = (movie, e) => {
     e.preventDefault();
-    console.log(id);
+    this.props.startAddToFavorites(movie);
   };
 
   renderCards = () =>
@@ -49,5 +50,5 @@ const mapStateToProps = ({ moviedb }) => ({
 
 export default connect(
   mapStateToProps,
-  { startGetMovies }
+  { startGetMovies, startAddToFavorites }
 )(Search);

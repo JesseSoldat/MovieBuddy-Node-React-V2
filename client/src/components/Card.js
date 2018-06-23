@@ -7,16 +7,16 @@ class Card extends Component {
   renderImage = image =>
     image ? `http://image.tmdb.org/t/p/w500/${image}` : "/images/noFilm.png";
 
-  renderBtn = (parent, id, add, remove) =>
+  renderBtn = (parent, movie, add, remove) =>
     parent === "search" ? (
-      <a href="" className="btn btn-primary" onClick={e => add(id, e)}>
-        <span className="mr-2">Favorite</span>
-        <i className="fas fa-heart" />
+      <a href="" className="btn btn-primary" onClick={e => add(movie, e)}>
+        <i className="fas fa-heart mr-2" />
+        <span>Favorite</span>
       </a>
     ) : (
-      <a href="" className="btn btn-danger" onClick={e => remove(id, e)}>
-        <span className="mr-2">Trash</span>
-        <i className="fas fa-trash" />
+      <a href="" className="btn btn-danger" onClick={e => remove(movie, e)}>
+        <i className="fas fa-trash mr-2" />
+        <span>Trash</span>
       </a>
     );
 
@@ -36,10 +36,10 @@ class Card extends Component {
 
         <div className="card-body pt-1 d-flex flex-row justify-content-around">
           <Link to={`/movie-details/${id}`} className="btn btn-secondary">
-            <span className="mr-2">Details</span>
-            <i className="fas fa-clipboard-list" />
+            <i className="fas fa-clipboard-list mr-2" />
+            <span>Details</span>
           </Link>
-          {this.renderBtn(parent, id, add, remove)}
+          {this.renderBtn(parent, { id, image, title }, add, remove)}
         </div>
       </div>
     );

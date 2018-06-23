@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 
 require("./routes/user")(app);
+require("./routes/favorites")(app);
 
 app.get("*", (req, res) => {
   res.send(`My Server is up on port: ${PORT}`);
