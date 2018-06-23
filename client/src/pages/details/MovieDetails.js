@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import { startGetMovie } from "../../actions/moviedb";
+import {
+  startAddToFavoritesDetails,
+  startRemoveFromFavoritesDetails
+} from "../../actions/favorites";
 import Loading from "../../components/Loading";
 import CardDetails from "../../components/CardDetails";
 
@@ -13,12 +18,21 @@ class MovieDetails extends Component {
     this.props.startGetMovie(id);
   }
 
+  removeFromFavorites = movie => {
+    this.props.startRemoveFromFavoritesDetails(movie._id, this.props.history);
+  };
+
+  addToFavorites = movie => {
+    this.props.startAddToFavoritesDetails(movie, this.props.history);
+  };
+
   render() {
     const { movie, loading } = this.props;
     let content;
 
     if (!loading && movie) {
       const {
+        id,
         title,
         poster_path,
         original_title,
@@ -32,6 +46,8 @@ class MovieDetails extends Component {
       content = (
         <CardDetails
           parent={getQueryParams("parent", this.props.location.search)}
+          _id={getQueryParams("id", this.props.location.search)}
+          movieid={id}
           title={title}
           poster_path={poster_path}
           original_title={original_title}
@@ -41,6 +57,8 @@ class MovieDetails extends Component {
           production_companies={production_companies}
           overview={overview}
           homepage={homepage}
+          remove={this.removeFromFavorites}
+          add={this.addToFavorites}
         />
       );
     } else if (!loading && !movie) {
@@ -66,5 +84,5 @@ const mapStateToProps = ({ moviedb }) => ({
 
 export default connect(
   mapStateToProps,
-  { startGetMovie }
-)(MovieDetails);
+  { startGetMovie, startAddToFavoritesDetails, startRemoveFromFavoritesDetails }
+)(withRouter(MovieDetails));

@@ -61,7 +61,7 @@ class Card extends Component {
   };
 
   render() {
-    const { _id, id, image, title, parent } = this.props;
+    const { _id = null, id, image, title, parent } = this.props;
     const { disabled } = this.state;
     return (
       <div className="card ml-auto mr-auto mb-3" style={{ width: "270px" }}>
@@ -77,7 +77,7 @@ class Card extends Component {
 
         <div className="card-body pt-1 d-flex flex-row justify-content-around">
           <Link
-            to={`/movie-details/${id}?parent=${parent}`}
+            to={`/movie-details/${id}?parent=${parent}&id=${_id}`}
             className="btn btn-secondary"
           >
             <i className="fas fa-clipboard-list mr-2" />

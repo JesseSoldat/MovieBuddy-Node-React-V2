@@ -32,6 +32,23 @@ export const startAddToFavorites = m => async dispatch => {
   }
 };
 
+export const startAddToFavoritesDetails = (m, history) => async dispatch => {
+  const id = m.id || m.movieid;
+  const movie = {
+    movieid: id,
+    title: m.title || "",
+    poster_path: m.poster_path || ""
+  };
+
+  try {
+    const res = await axios.post("/api/favorites/movies", movie);
+    dispatch(addToFavorites(res.data));
+    history.push("/favorites");
+  } catch (err) {
+    dispatch({ type: FAVORITES_ERR, error: errMessage("post", "favorites") });
+  }
+};
+
 export const getFavorites = favorites => ({
   type: ALL_FAVORITES,
   favorites,
@@ -60,6 +77,19 @@ export const startRemoveFromFavorites = _id => async dispatch => {
   try {
     await axios.delete(`/api/favorites/movies/${_id}`);
     dispatch(removeFromFavorites(_id));
+  } catch (err) {
+    dispatch({ type: FAVORITES_ERR, error: errMessage("remove", "favorite") });
+  }
+};
+
+export const startRemoveFromFavoritesDetails = (
+  _id,
+  history
+) => async dispatch => {
+  try {
+    await axios.delete(`/api/favorites/movies/${_id}`);
+    dispatch(removeFromFavorites(_id));
+    history.push("/favorites");
   } catch (err) {
     dispatch({ type: FAVORITES_ERR, error: errMessage("remove", "favorite") });
   }
