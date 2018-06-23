@@ -15,7 +15,11 @@ export const addToFavorites = favorite => ({
   err: null
 });
 
-export const startAddToFavorites = m => async dispatch => {
+export const startAddToFavorites = (
+  m,
+  type = null,
+  history = null
+) => async dispatch => {
   dispatch({ type: FAVORITES_LOADING, loading: true });
   const id = m.id || m.movieid;
   const movie = {
@@ -27,23 +31,7 @@ export const startAddToFavorites = m => async dispatch => {
   try {
     const res = await axios.post("/api/favorites/movies", movie);
     dispatch(addToFavorites(res.data));
-  } catch (err) {
-    dispatch({ type: FAVORITES_ERR, error: errMessage("post", "favorites") });
-  }
-};
-
-export const startAddToFavoritesDetails = (m, history) => async dispatch => {
-  const id = m.id || m.movieid;
-  const movie = {
-    movieid: id,
-    title: m.title || "",
-    poster_path: m.poster_path || ""
-  };
-
-  try {
-    const res = await axios.post("/api/favorites/movies", movie);
-    dispatch(addToFavorites(res.data));
-    history.push("/favorites");
+    if (type !== null) history.push("/favorites");
   } catch (err) {
     dispatch({ type: FAVORITES_ERR, error: errMessage("post", "favorites") });
   }
@@ -73,23 +61,15 @@ export const removeFromFavorites = _id => ({
   error: null
 });
 
-export const startRemoveFromFavorites = _id => async dispatch => {
-  try {
-    await axios.delete(`/api/favorites/movies/${_id}`);
-    dispatch(removeFromFavorites(_id));
-  } catch (err) {
-    dispatch({ type: FAVORITES_ERR, error: errMessage("remove", "favorite") });
-  }
-};
-
-export const startRemoveFromFavoritesDetails = (
+export const startRemoveFromFavorites = (
   _id,
-  history
+  type = null,
+  history = null
 ) => async dispatch => {
   try {
     await axios.delete(`/api/favorites/movies/${_id}`);
     dispatch(removeFromFavorites(_id));
-    history.push("/favorites");
+    if (type !== null) history.push("/favorites");
   } catch (err) {
     dispatch({ type: FAVORITES_ERR, error: errMessage("remove", "favorite") });
   }

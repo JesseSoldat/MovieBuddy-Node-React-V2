@@ -4,8 +4,8 @@ import { withRouter } from "react-router-dom";
 
 import { startGetMovie } from "../../actions/moviedb";
 import {
-  startAddToFavoritesDetails,
-  startRemoveFromFavoritesDetails
+  startAddToFavorites,
+  startRemoveFromFavorites
 } from "../../actions/favorites";
 import Loading from "../../components/Loading";
 import CardDetails from "../../components/CardDetails";
@@ -19,11 +19,15 @@ class MovieDetails extends Component {
   }
 
   removeFromFavorites = movie => {
-    this.props.startRemoveFromFavoritesDetails(movie._id, this.props.history);
+    this.props.startRemoveFromFavorites(
+      movie._id,
+      "details",
+      this.props.history
+    );
   };
 
   addToFavorites = movie => {
-    this.props.startAddToFavoritesDetails(movie, this.props.history);
+    this.props.startAddToFavorites(movie, "details", this.props.history);
   };
 
   render() {
@@ -84,5 +88,5 @@ const mapStateToProps = ({ moviedb }) => ({
 
 export default connect(
   mapStateToProps,
-  { startGetMovie, startAddToFavoritesDetails, startRemoveFromFavoritesDetails }
+  { startGetMovie, startAddToFavorites, startRemoveFromFavorites }
 )(withRouter(MovieDetails));

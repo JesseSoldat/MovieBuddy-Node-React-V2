@@ -105,6 +105,7 @@ class CardDetails extends Component {
       homepage
     } = this.props;
     const { disabled } = this.state;
+
     return (
       <div className="card mb-3 mt-3">
         <div className="card-header">
@@ -136,7 +137,7 @@ class CardDetails extends Component {
         </div>
         <div className="card-footer">
           {parent === "search" && !disabled
-            ? this.renderAddBtn({ movieid, title, poster_path })
+            ? this.renderAddBtn({ movieid, title, image: poster_path })
             : null}
           {parent === "search" && disabled
             ? this.renderLoadingBtn("Favorite", "/search", "primary")
