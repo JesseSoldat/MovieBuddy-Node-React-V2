@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { startGetFavorites } from "../../actions/favorites";
+import Loading from "../../components/Loading";
+
+import {
+  startGetFavorites,
+  startRemoveFromFavorites
+} from "../../actions/favorites";
 import Card from "../../components/Card";
 
 class favorites extends Component {
@@ -9,14 +14,11 @@ class favorites extends Component {
     this.props.startGetFavorites();
   }
 
-  removeFromFavorites = (movie, e) => {
-    e.preventDefault();
-    console.log(movie);
+  removeFromFavorites = movie => {
+    this.props.startRemoveFromFavorites(movie._id);
   };
 
   renderCards = favorites => {
-    console.log(favorites);
-
     return favorites.map(movie => {
       const { _id, title, poster_path, movieid } = movie;
       return (
@@ -34,13 +36,17 @@ class favorites extends Component {
   };
 
   render() {
-    const { favorites } = this.props;
+    const { favorites, loading } = this.props;
+    let content;
+    if (loading) {
+      content = <Loading />;
+    } else if (!loading && favorites.length > 0) {
+      content = this.renderCards(favorites);
+    }
     return (
       <div className="container">
         <h1 className="text-center mb-3 mt-3 display-4">Favorite Movies</h1>
-        <div className="d-flex flex-wrap">
-          {favorites ? this.renderCards(favorites) : null}
-        </div>
+        <div className="d-flex flex-wrap">{content}</div>
       </div>
     );
   }
@@ -48,11 +54,11 @@ class favorites extends Component {
 
 const mapStateToProps = ({ favorites }) => ({
   favorites: favorites.favorites,
-  loading: favorites.favorites,
+  loading: favorites.loading,
   error: favorites.error
 });
 
 export default connect(
   mapStateToProps,
-  { startGetFavorites }
+  { startGetFavorites, startRemoveFromFavorites }
 )(favorites);

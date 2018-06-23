@@ -4,24 +4,73 @@ import { Link } from "react-router-dom";
 import truncateText from "../utils/truncateText";
 
 class Card extends Component {
+  state = {
+    disabled: false
+  };
+
   renderImage = image =>
     image ? `http://image.tmdb.org/t/p/w500/${image}` : "/images/noFilm.png";
 
-  renderBtn = (parent, movie, add, remove) =>
-    parent === "search" ? (
-      <a href="" className="btn btn-primary" onClick={e => add(movie, e)}>
-        <i className="fas fa-heart mr-2" />
-        <span>Favorite</span>
-      </a>
-    ) : (
-      <a href="" className="btn btn-danger" onClick={e => remove(movie, e)}>
-        <i className="fas fa-trash mr-2" />
-        <span>Delete</span>
+  disableAddBtn = (movie, e) => {
+    e.preventDefault();
+    if (this.state.disabled) {
+      console.log("disabled");
+      return;
+    }
+    this.setState({ disabled: true });
+    this.props.add(movie);
+  };
+
+  disableDeleteBtn = (movie, e) => {
+    e.preventDefault();
+    if (this.state.disabled) {
+      console.log("disabled");
+      return;
+    }
+    this.setState({ disabled: true });
+    // this.props.remove(movie);
+  };
+
+  renderDeleteBtn = movie => {
+    return (
+      <a
+        href=""
+        className="btn btn-danger"
+        onClick={e => this.disableDeleteBtn(movie, e)}
+      >
+        <span>
+          <i className="fas fa-trash mr-2" />
+          Delete
+        </span>
       </a>
     );
+  };
+
+  renderAddBtn = movie => {
+    return (
+      <a
+        href=""
+        className="btn btn-primary"
+        onClick={e => this.disableAddBtn(movie, e)}
+      >
+        <i className="fas fa-heart mr-2" />
+        Favorite
+      </a>
+    );
+  };
+
+  renderLoadingBtn = string => {
+    return (
+      <span>
+        <i className="fas fa-spinner fa-spin mr-2" />
+        {string}
+      </span>
+    );
+  };
 
   render() {
-    const { _id, id, image, title, parent, add, remove } = this.props;
+    const { _id, id, image, title, parent } = this.props;
+    const { disabled } = this.state;
     return (
       <div className="card ml-auto mr-auto mb-3" style={{ width: "270px" }}>
         <img
@@ -35,11 +84,19 @@ class Card extends Component {
         </div>
 
         <div className="card-body pt-1 d-flex flex-row justify-content-around">
-          <Link to={`/movie-details/${id}`} className="btn btn-secondary">
+          <Link
+            to={`/movie-details/${id}?parent=${parent}`}
+            className="btn btn-secondary"
+          >
             <i className="fas fa-clipboard-list mr-2" />
             <span>Details</span>
           </Link>
-          {this.renderBtn(parent, { _id, id, image, title }, add, remove)}
+
+          {/* {(parent === "search" && disabled = false) ? this.renderAddBtn({ id, title, image }) : this.renderLoadingBtn("Favorite")} */}
+
+          {parent === "favorites" && disabled !== true
+            ? this.renderDeleteBtn({ _id, id, title, image })
+            : this.renderLoadingBtn("Delete")}
         </div>
       </div>
     );

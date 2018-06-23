@@ -5,6 +5,7 @@ import errMessage from "./utils/errMessage";
 export const ALL_FAVORITES = "ALL_FAVORITES";
 export const ONE_FAVORITE = "ONE_FAVORITE";
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
+export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const FAVORITES_LOADING = "FAVORITES_LOADING";
 export const FAVORITES_ERR = "FAVORITES_ERR";
 
@@ -46,5 +47,21 @@ export const startGetFavorites = () => async dispatch => {
     dispatch(getFavorites(res.data));
   } catch (err) {
     dispatch({ type: FAVORITES_ERR, error: errMessage("get", "favorites") });
+  }
+};
+
+export const removeFromFavorites = _id => ({
+  type: REMOVE_FROM_FAVORITES,
+  _id,
+  loading: false,
+  error: null
+});
+
+export const startRemoveFromFavorites = _id => async dispatch => {
+  try {
+    await axios.delete(`/api/favorites/movies/${_id}`);
+    dispatch(removeFromFavorites(_id));
+  } catch (err) {
+    dispatch({ type: FAVORITES_ERR, error: errMessage("remove", "favorite") });
   }
 };

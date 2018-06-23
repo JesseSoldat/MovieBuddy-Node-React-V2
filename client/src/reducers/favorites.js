@@ -2,6 +2,7 @@ import {
   ALL_FAVORITES,
   ONE_FAVORITE,
   ADD_TO_FAVORITES,
+  REMOVE_FROM_FAVORITES,
   FAVORITES_LOADING,
   FAVORITES_ERR
 } from "../actions/favorites";
@@ -15,7 +16,7 @@ const initialState = {
 
 export default (
   state = initialState,
-  { type, favorites, favorite, loading, error }
+  { type, _id, favorites, favorite, loading, error }
 ) => {
   switch (type) {
     case FAVORITES_LOADING:
@@ -40,6 +41,17 @@ export default (
         ...state,
         favorites: [state.favorites, favorite],
         favorite: null,
+        loading,
+        error
+      };
+
+    case REMOVE_FROM_FAVORITES:
+      // console.log("REMOVE_FROM_FAVORITES", _id);
+      const filteredFav = [...state.favorites].filter(f => f._id !== _id);
+      return {
+        ...state,
+        favorites: filteredFav,
+        favorite,
         loading,
         error
       };

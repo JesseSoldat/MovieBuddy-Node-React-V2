@@ -18,4 +18,14 @@ module.exports = app => {
       res.status(400).send("Could not save the movie to favorites");
     }
   });
+
+  app.delete("/api/favorites/movies/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+      await Movie.findByIdAndRemove(id);
+      res.status(200).send(id);
+    } catch (err) {
+      res.status(400).send("Could not delete the movie from favorites");
+    }
+  });
 };

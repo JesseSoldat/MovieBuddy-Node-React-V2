@@ -5,6 +5,8 @@ import { startGetMovie } from "../../actions/moviedb";
 import Loading from "../../components/Loading";
 import CardDetails from "../../components/CardDetails";
 
+import getQueryParams from "../../utils/getQueryParams";
+
 class MovieDetails extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
@@ -29,7 +31,7 @@ class MovieDetails extends Component {
       } = movie;
       content = (
         <CardDetails
-          parent="search"
+          parent={getQueryParams("parent", this.props.location.search)}
           title={title}
           poster_path={poster_path}
           original_title={original_title}
