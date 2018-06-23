@@ -1,6 +1,5 @@
 import {
   ALL_FAVORITES,
-  ONE_FAVORITE,
   ADD_TO_FAVORITES,
   REMOVE_FROM_FAVORITES,
   FAVORITES_LOADING,
@@ -9,7 +8,6 @@ import {
 
 const initialState = {
   favorites: [],
-  favorite: null,
   loading: true,
   error: null
 };
@@ -30,7 +28,6 @@ export default (
       return {
         ...state,
         favorites: [...favorites],
-        favorite: null,
         loading: false,
         error: null
       };
@@ -39,8 +36,7 @@ export default (
       // console.log("ADD_TO_FAVORITES", favorite);
       return {
         ...state,
-        favorites: [state.favorites, favorite],
-        favorite: null,
+        favorites: [...state.favorites, favorite],
         loading,
         error
       };
@@ -51,7 +47,6 @@ export default (
       return {
         ...state,
         favorites: filteredFav,
-        favorite,
         loading,
         error
       };

@@ -39,7 +39,6 @@ class Search extends Component {
 
   render() {
     const { movies, favorites } = this.props;
-
     let favoriteIds, filtered;
     if (favorites) {
       favoriteIds = favorites.map(fav => fav.movieid);

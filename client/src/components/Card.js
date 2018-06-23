@@ -11,60 +11,52 @@ class Card extends Component {
   renderImage = image =>
     image ? `http://image.tmdb.org/t/p/w500/${image}` : "/images/noFilm.png";
 
-  disableAddBtn = (movie, e) => {
-    e.preventDefault();
-    if (this.state.disabled) {
-      console.log("disabled");
-      return;
-    }
-    this.setState({ disabled: true });
-    this.props.add(movie);
+  disableAddBtn = movie => {
+    this.setState(prevState => {
+      this.props.add(movie);
+      return { disabled: true };
+    });
   };
 
-  disableDeleteBtn = (movie, e) => {
-    e.preventDefault();
-    if (this.state.disabled) {
-      console.log("disabled");
-      return;
-    }
-    this.setState({ disabled: true });
-    // this.props.remove(movie);
+  disableDeleteBtn = movie => {
+    this.setState(prevState => {
+      this.props.remove(movie);
+      return { disabled: true };
+    });
   };
 
   renderDeleteBtn = movie => {
     return (
-      <a
-        href=""
+      <button
         className="btn btn-danger"
-        onClick={e => this.disableDeleteBtn(movie, e)}
+        onClick={e => this.disableDeleteBtn(movie)}
       >
         <span>
           <i className="fas fa-trash mr-2" />
           Delete
         </span>
-      </a>
+      </button>
     );
   };
 
   renderAddBtn = movie => {
     return (
-      <a
-        href=""
+      <button
         className="btn btn-primary"
-        onClick={e => this.disableAddBtn(movie, e)}
+        onClick={e => this.disableAddBtn(movie)}
       >
         <i className="fas fa-heart mr-2" />
         Favorite
-      </a>
+      </button>
     );
   };
 
-  renderLoadingBtn = string => {
+  renderLoadingBtn = (string, btnType) => {
     return (
-      <span>
+      <button className={`btn btn-${btnType}`}>
         <i className="fas fa-spinner fa-spin mr-2" />
         {string}
-      </span>
+      </button>
     );
   };
 
@@ -92,11 +84,19 @@ class Card extends Component {
             <span>Details</span>
           </Link>
 
-          {/* {(parent === "search" && disabled = false) ? this.renderAddBtn({ id, title, image }) : this.renderLoadingBtn("Favorite")} */}
+          {parent === "search" && !disabled
+            ? this.renderAddBtn({ id, title, image })
+            : null}
+          {parent === "search" && disabled
+            ? this.renderLoadingBtn("Favorite", "primary")
+            : null}
 
-          {parent === "favorites" && disabled !== true
+          {parent === "favorites" && !disabled
             ? this.renderDeleteBtn({ _id, id, title, image })
-            : this.renderLoadingBtn("Delete")}
+            : null}
+          {parent === "favorites" && disabled
+            ? this.renderLoadingBtn("Delete", "danger")
+            : null}
         </div>
       </div>
     );

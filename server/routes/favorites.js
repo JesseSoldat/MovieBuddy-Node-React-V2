@@ -1,8 +1,10 @@
 const Movie = require("../models/movie");
 module.exports = app => {
+  const movieidsArray = [];
+
   app.get("/api/favorites/movies", async (req, res) => {
     try {
-      const movies = await Movie.find({});
+      const movies = await Movie.find({}).sort([["_id", -1]]);
       res.status(200).send(movies);
     } catch (err) {
       res.status(400).send("Could get your favorites");
@@ -15,6 +17,9 @@ module.exports = app => {
       await movie.save();
       res.status(200).send(movie);
     } catch (err) {
+      if (err.code === 11000) return;
+      console.log(err.code);
+
       res.status(400).send("Could not save the movie to favorites");
     }
   });

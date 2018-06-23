@@ -3,7 +3,6 @@ import axios from "axios";
 import errMessage from "./utils/errMessage";
 
 export const ALL_FAVORITES = "ALL_FAVORITES";
-export const ONE_FAVORITE = "ONE_FAVORITE";
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const FAVORITES_LOADING = "FAVORITES_LOADING";
