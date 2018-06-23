@@ -16,12 +16,12 @@ class Card extends Component {
     ) : (
       <a href="" className="btn btn-danger" onClick={e => remove(movie, e)}>
         <i className="fas fa-trash mr-2" />
-        <span>Trash</span>
+        <span>Delete</span>
       </a>
     );
 
   render() {
-    const { id, image, title, parent, add, remove } = this.props;
+    const { _id, id, image, title, parent, add, remove } = this.props;
     return (
       <div className="card ml-auto mr-auto mb-3" style={{ width: "270px" }}>
         <img
@@ -39,7 +39,7 @@ class Card extends Component {
             <i className="fas fa-clipboard-list mr-2" />
             <span>Details</span>
           </Link>
-          {this.renderBtn(parent, { id, image, title }, add, remove)}
+          {this.renderBtn(parent, { _id, id, image, title }, add, remove)}
         </div>
       </div>
     );

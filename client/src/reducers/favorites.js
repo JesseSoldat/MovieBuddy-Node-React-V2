@@ -13,13 +13,33 @@ const initialState = {
   error: null
 };
 
-export default (state = initialState, { type, favorite, loading, error }) => {
+export default (
+  state = initialState,
+  { type, favorites, favorite, loading, error }
+) => {
   switch (type) {
+    case FAVORITES_LOADING:
+      return { ...state, loading };
+
+    case FAVORITES_ERR:
+      return { ...state, loading: false, error };
+
+    case ALL_FAVORITES:
+      // console.log("ALL_FAVORITES", favorites);
+      return {
+        ...state,
+        favorites: [...favorites],
+        favorite: null,
+        loading: false,
+        error: null
+      };
+
     case ADD_TO_FAVORITES:
-      console.log("ADD_TO_FAVORITES", favorite);
+      // console.log("ADD_TO_FAVORITES", favorite);
       return {
         ...state,
         favorites: [state.favorites, favorite],
+        favorite: null,
         loading,
         error
       };

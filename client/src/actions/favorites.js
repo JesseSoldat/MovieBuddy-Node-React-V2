@@ -31,3 +31,20 @@ export const startAddToFavorites = m => async dispatch => {
     dispatch({ type: FAVORITES_ERR, error: errMessage("post", "favorites") });
   }
 };
+
+export const getFavorites = favorites => ({
+  type: ALL_FAVORITES,
+  favorites,
+  loading: false,
+  err: null
+});
+
+export const startGetFavorites = () => async dispatch => {
+  dispatch({ type: FAVORITES_LOADING, loading: true });
+  try {
+    const res = await axios.get("/api/favorites/movies");
+    dispatch(getFavorites(res.data));
+  } catch (err) {
+    dispatch({ type: FAVORITES_ERR, error: errMessage("get", "favorites") });
+  }
+};
