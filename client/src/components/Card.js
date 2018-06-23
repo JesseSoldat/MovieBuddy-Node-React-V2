@@ -10,12 +10,12 @@ class Card extends Component {
   renderBtn = (parent, id, add, remove) =>
     parent === "search" ? (
       <a href="" className="btn btn-primary" onClick={e => add(id, e)}>
-        <span className="mr-1">Favorite</span>
+        <span className="mr-2">Favorite</span>
         <i className="fas fa-heart" />
       </a>
     ) : (
       <a href="" className="btn btn-danger" onClick={e => remove(id, e)}>
-        <span className="mr-1">Trash</span>
+        <span className="mr-2">Trash</span>
         <i className="fas fa-trash" />
       </a>
     );
@@ -36,7 +36,7 @@ class Card extends Component {
 
         <div className="card-body pt-1 d-flex flex-row justify-content-around">
           <Link to={`/movie-details/${id}`} className="btn btn-secondary">
-            <span className="mr-1">Details</span>
+            <span className="mr-2">Details</span>
             <i className="fas fa-clipboard-list" />
           </Link>
           {this.renderBtn(parent, id, add, remove)}

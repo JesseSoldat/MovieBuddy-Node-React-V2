@@ -17,13 +17,13 @@ const NavBar = ({ isAuth }) => {
     <ul className="navbar-nav ml-auto">
       <li className="nav-item mr-2 pb-sm-3 pt-sm-3 pt-md-0 pb-md-0">
         <Link to="/login">
-          <i className="fas fa-sign-in-alt mr-1" />
+          <i className="fas fa-sign-in-alt mr-2" />
           Login
         </Link>
       </li>
       <li className="nav-item pb-sm-3 pb-md-0">
         <Link to="/register">
-          <i className="fas fa-pencil-alt mr-1" />
+          <i className="fas fa-pencil-alt mr-2" />
           Register
         </Link>
       </li>
@@ -34,13 +34,13 @@ const NavBar = ({ isAuth }) => {
     <ul className="navbar-nav ml-auto">
       <li className="nav-item mr-2 pb-sm-3 pt-sm-3 pt-md-0 pb-md-0">
         <Link to="/search">
-          <i className="fas fa-search mr-1" />
+          <i className="fas fa-search mr-2" />
           Search
         </Link>
       </li>
       <li className="nav-item pb-sm-3 pb-md-0">
         <Link to="/favorites">
-          <i className="fas fa-heart mr-1" />
+          <i className="fas fa-heart mr-2" />
           Favorites
         </Link>
       </li>
