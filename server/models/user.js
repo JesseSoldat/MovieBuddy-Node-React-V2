@@ -5,9 +5,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const UserSchema = new Schema({
-  name: {
+  username: {
     type: String,
-    trim: true
+    trim: true,
+    required: true
   },
   email: {
     type: String,
@@ -98,11 +99,9 @@ UserSchema.statics.findByCredentials = async function(email, password) {
 UserSchema.statics.findByToken = async function(token) {
   const User = this;
   let decodedToken;
-  console.log(process.env.JWT_SECRET);
 
   try {
-    decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("decodedToken", decodedToken);
+    decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findOne({
       _id: decodedToken._id,

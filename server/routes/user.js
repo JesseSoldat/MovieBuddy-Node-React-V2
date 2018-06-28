@@ -3,8 +3,8 @@ const isAuth = require("../middlewares/isAuth");
 
 module.exports = app => {
   app.post("/auth/register", async (req, res) => {
-    const { email, password } = req.body;
-    const newUser = new User({ email, password });
+    const { username, email, password } = req.body;
+    const newUser = new User({ username, email, password });
 
     try {
       await newUser.save();
