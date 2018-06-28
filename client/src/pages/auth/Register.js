@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { startRegister } from "../../actions/auth";
-import AuthForm from "../../components/AuthForm";
+import RegisterForm from "./RegisterForm";
 
 const Register = ({ startRegister }) => {
   const handleSubmit = (username, email, password) => {
@@ -14,7 +14,7 @@ const Register = ({ startRegister }) => {
       <div className="row">
         <div className="col-xs-12 col-md-8 mx-auto">
           <h1 className="text-center mb-3 mt-3 display-4">Register</h1>
-          <AuthForm parent="register" handleSubmit={handleSubmit} />
+          <RegisterForm handleSubmit={handleSubmit} />
         </div>
       </div>
     </div>

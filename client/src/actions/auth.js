@@ -33,6 +33,19 @@ export const login = (_id, token) => ({
   token
 });
 
+export const startLogin = (email, password) => async dispatch => {
+  const user = { email, password };
+  try {
+    const res = await axios.post("auth/login", user);
+    const { _id, tokens } = res.data;
+    const { token } = tokens[tokens.length - 1];
+    localStorage.setItem("user", JSON.stringify({ _id, token }));
+    dispatch(login(_id, token));
+  } catch (err) {
+    dispatch({ type: AUTH_ERR, error: errMessage("login", "user") });
+  }
+};
+
 export const logout = () => ({
   type: LOGOUT
 });

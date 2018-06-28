@@ -1,11 +1,27 @@
 import React from "react";
-import AuthForm from "../../components/AuthForm";
+import { connect } from "react-redux";
 
-const Login = () => (
-  <div>
-    Login Page
-    <AuthForm />
-  </div>
-);
+import LoginForm from "./LoginForm";
+import { startLogin } from "../../actions/auth";
 
-export default Login;
+const Login = ({ startLogin }) => {
+  const handleSubmit = (username, email, password) => {
+    startLogin(username, email, password);
+  };
+
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-xs-12 col-md-8 mx-auto">
+          <h1 className="text-center mb-3 mt-3 display-4">Login</h1>
+          <LoginForm handleSubmit={handleSubmit} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default connect(
+  null,
+  { startLogin }
+)(Login);

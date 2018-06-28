@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import TextInput from "./inputs/TextInput";
-import isEmail from "../utils/isEmail";
-import isEmpty from "../utils/isEmpty";
-import isMatch from "../utils/isMatch";
+import TextInput from "../../components/inputs/TextInput";
+import isEmail from "../../utils/isEmail";
+import isEmpty from "../../utils/isEmpty";
+import isMatch from "../../utils/isMatch";
 
-class AuthForm extends Component {
+class RegisterForm extends Component {
   state = {
     username: "",
     email: "",
@@ -128,4 +128,4 @@ class AuthForm extends Component {
   }
 }
 
-export default connect(null)(AuthForm);
+export default connect(null)(RegisterForm);
