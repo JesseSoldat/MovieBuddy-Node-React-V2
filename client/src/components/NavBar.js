@@ -2,7 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const NavBar = ({ isAuth }) => {
+import { startLogout } from "../actions/auth";
+
+const NavBar = ({ isAuth, startLogout }) => {
+  const logout = e => {
+    e.preventDefault();
+    startLogout();
+  };
+
   const brand = isAuth ? (
     <Link className="navbar-brand" to="/dashboard">
       Movie Buddy
@@ -15,7 +22,7 @@ const NavBar = ({ isAuth }) => {
 
   const publicRoutes = (
     <ul className="navbar-nav ml-auto">
-      <li className="nav-item mr-2 pb-sm-3 pt-sm-3 pt-md-0 pb-md-0">
+      <li className="nav-item mr-3 pb-sm-3 pt-sm-3 pt-md-0 pb-md-0">
         <Link to="/login">
           <i className="fas fa-sign-in-alt mr-2" />
           Login
@@ -32,17 +39,23 @@ const NavBar = ({ isAuth }) => {
 
   const privateRoutes = (
     <ul className="navbar-nav ml-auto">
-      <li className="nav-item mr-2 pb-sm-3 pt-sm-3 pt-md-0 pb-md-0">
+      <li className="nav-item mr-3 pb-sm-3 pt-sm-3 pt-md-0 pb-md-0">
         <Link to="/search">
           <i className="fas fa-search mr-2" />
           Search
         </Link>
       </li>
-      <li className="nav-item pb-sm-3 pb-md-0">
+      <li className="nav-item pb-sm-3 pb-md-0 mr-3">
         <Link to="/favorites">
           <i className="fas fa-heart mr-2" />
           Favorites
         </Link>
+      </li>
+      <li className="nav-item pb-sm-3 pb-md-0" onClick={logout}>
+        <a href="">
+          <i className="fas fa-sign-out-alt mr-2" />
+          Logout
+        </a>
       </li>
     </ul>
   );
@@ -70,4 +83,7 @@ const mapStateToProps = ({ auth }) => ({
   isAuth: !!auth._id
 });
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(
+  mapStateToProps,
+  { startLogout }
+)(NavBar);

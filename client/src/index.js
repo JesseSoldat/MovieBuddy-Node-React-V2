@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import AppRouter from "./router/AppRouter";
 import { LOGIN } from "./actions/auth";
+import setAxiosHeader from "./utils/setAxiosHeader";
 
 import "./index.css";
 
@@ -34,9 +35,11 @@ if (user) {
     _id,
     token
   });
-  // console.log("user: ", user);
+  console.log("user: ", user);
+  setAxiosHeader(token);
   renderApp();
 } else {
   // no user
+  setAxiosHeader(null);
   renderApp();
 }

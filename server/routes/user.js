@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { isAuth } = require("../middlewares/isAuth");
+const isAuth = require("../middlewares/isAuth");
 
 module.exports = app => {
   app.post("/auth/register", async (req, res) => {
@@ -28,6 +28,8 @@ module.exports = app => {
 
   app.delete("/auth/logout", isAuth, async (req, res) => {
     const { user, token } = req;
+    console.log(user, token);
+
     user.tokens = user.tokens.filter(t => t.token !== token);
     try {
       await user.save();

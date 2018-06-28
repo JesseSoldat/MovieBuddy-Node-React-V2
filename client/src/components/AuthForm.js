@@ -1,22 +1,37 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import { startRegister } from '../actions/auth';
+import TextInput from "./inputs/TextInput";
 
 class AuthForm extends Component {
-  onSubmit = (e) => {
+  state = {
+    email: "",
+    password1: "",
+    password2: ""
+  };
+
+  onSubmit = e => {
     e.preventDefault();
-    this.props.startRegister('jesse', 'jlab75@jlab.com', 'donttellanyone');
-  }
+    this.props.handleSubmit();
+  };
+
+  onChange = e => {};
 
   render() {
+    const { email, password1, password2 } = this.state;
     return (
-      <div>
-        <h1>AuthForm</h1>
+      <form noValidate>
+        <TextInput
+          placeholder="Email"
+          name="email"
+          type="email"
+          onChange={this.onChange}
+          value={email}
+        />
         <button onClick={this.onSubmit}>Register</button>
-      </div>
+      </form>
     );
   }
 }
 
-export default connect(null, { startRegister })(AuthForm);
+export default connect(null)(AuthForm);
