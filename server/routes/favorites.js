@@ -1,30 +1,35 @@
 const Movie = require("../models/movie");
-module.exports = app => {
-  const movieidsArray = [];
+const isAuth = require("../middlewares/isAuth");
 
-  app.get("/api/favorites/movies", async (req, res) => {
+module.exports = app => {
+  app.get("/api/favorites/movies", isAuth, async (req, res) => {
+    const {
+      user: { _id }
+    } = req;
+
     try {
-      const movies = await Movie.find({}).sort([["_id", -1]]);
+      const movies = await Movie.find({ user: _id }).sort([["_id", -1]]);
       res.status(200).send(movies);
     } catch (err) {
       res.status(400).send("Could get your favorites");
     }
   });
 
-  app.post("/api/favorites/movies", async (req, res) => {
+  app.post("/api/favorites/movies", isAuth, async (req, res) => {
+    const {
+      user: { _id }
+    } = req;
+
     try {
-      const movie = new Movie(req.body);
+      const movie = new Movie({ ...req.body, user: _id });
       await movie.save();
       res.status(200).send(movie);
     } catch (err) {
-      if (err.code === 11000) return;
-      console.log(err.code);
-
       res.status(400).send("Could not save the movie to favorites");
     }
   });
 
-  app.delete("/api/favorites/movies/:id", async (req, res) => {
+  app.delete("/api/favorites/movies/:id", isAuth, async (req, res) => {
     const { id } = req.params;
     try {
       await Movie.findByIdAndRemove(id);

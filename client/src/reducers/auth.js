@@ -28,8 +28,6 @@ export default (state = initialState, action) => {
       };
 
     case LOGOUT:
-      console.log("LOGOUT");
-
       return {
         ...state,
         _id: null,

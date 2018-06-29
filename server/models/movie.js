@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const MovieSchema = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "user"
+  },
   movieid: {
     type: Number,
     required: true,
@@ -17,5 +21,5 @@ const MovieSchema = new Schema({
   }
 });
 
-const Movie = mongoose.model("Movie", MovieSchema);
+const Movie = mongoose.model("movie", MovieSchema);
 module.exports = Movie;

@@ -7,6 +7,7 @@ import generalRoutes from "./general/routes";
 import searchRoutes from "./search/routes";
 import favoritesRoutes from "./favorites/routes";
 import detailsRoutes from "./details/routes";
+import matchRoutes from "./match/route";
 import NotFound from "../pages/general/NotFound";
 
 export const history = createHistory();
@@ -20,6 +21,7 @@ const AppRouter = () => (
         {searchRoutes}
         {favoritesRoutes}
         {detailsRoutes}
+        {matchRoutes}
         <Route key="notfound" component={NotFound} />
       </Switch>
     </div>

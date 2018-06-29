@@ -51,6 +51,12 @@ const NavBar = ({ isAuth, startLogout }) => {
           Favorites
         </Link>
       </li>
+      <li className="nav-item pb-sm-3 pb-md-0 mr-3">
+        <Link to="/match">
+          <i className="fas fa-users mr-2" />
+          Match
+        </Link>
+      </li>
       <li className="nav-item pb-sm-3 pb-md-0" onClick={logout}>
         <a href="">
           <i className="fas fa-sign-out-alt mr-2" />
