@@ -5,8 +5,8 @@ import LoginForm from "./LoginForm";
 import { startLogin } from "../../actions/auth";
 
 const Login = ({ startLogin }) => {
-  const handleSubmit = (username, email, password) => {
-    startLogin(username, email, password);
+  const handleSubmit = (email, password) => {
+    startLogin(email, password);
   };
 
   return (

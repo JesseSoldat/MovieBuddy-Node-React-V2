@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import TextInput from "../../components/inputs/TextInput";
 import isEmail from "../../utils/isEmail";
 import isEmpty from "../../utils/isEmpty";
-import isMatch from "../../utils/isMatch";
 
 class LoginForm extends Component {
   state = {
@@ -14,8 +13,44 @@ class LoginForm extends Component {
     passwordErr: null
   };
 
+  isValid = (email, password) => {
+    let isValid = true;
+    let emailErr = null;
+    let passwordErr = null;
+
+    if (isEmpty(email) || isEmpty(password)) {
+      isValid = false;
+
+      if (isEmpty(email)) {
+        emailErr = "The email field is required";
+      }
+      if (isEmpty(password)) {
+        passwordErr = "The password field is required";
+      }
+    }
+
+    if (!isEmpty(email) && !isEmail(email)) {
+      isValid = false;
+      emailErr = "The email is not valid";
+    }
+
+    this.setState({
+      emailErr,
+      passwordErr
+    });
+
+    return isValid;
+  };
+
   onSubmit = e => {
     e.preventDefault();
+    const { email, password } = this.state;
+
+    if (!this.isValid(email, password)) {
+      return;
+    }
+
+    this.props.handleSubmit(email, password);
   };
 
   onChange = e => {

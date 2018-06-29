@@ -36,11 +36,17 @@ class RegisterForm extends Component {
       if (isEmpty(password1)) {
         passwordErr = "The password field is required";
       }
+
+      if (!isEmpty(email) && !isEmail(email)) {
+        isValid = false;
+        emailErr = "The email is not valid";
+      }
+
       this.setState({ usernameErr, emailErr, passwordErr });
       return;
     }
 
-    if (!isEmail(email)) {
+    if (!isEmpty(email) && !isEmail(email)) {
       isValid = false;
       emailErr = "The email is not valid";
     }
