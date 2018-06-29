@@ -25,6 +25,7 @@ export default (
       };
 
     case DB_MOVIE_ERR:
+      console.log("DB_MOVIE_ERR", error);
       return {
         ...state,
         loading,

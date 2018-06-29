@@ -29,13 +29,14 @@ ReactDOM.render(<Loading />, root);
 const user = JSON.parse(localStorage.getItem("user"));
 
 if (user) {
-  const { _id, token } = user;
+  const { username, _id, token } = user;
   store.dispatch({
     type: LOGIN,
+    username,
     _id,
     token
   });
-  console.log("user: ", user);
+  // console.log("user: ", user);
   setAxiosHeader(token);
   renderApp();
 } else {

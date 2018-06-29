@@ -9,8 +9,7 @@ const MovieSchema = new Schema({
   movieid: {
     type: Number,
     required: true,
-    trim: true,
-    unique: true
+    trim: true
   },
   title: {
     type: String,

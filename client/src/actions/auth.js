@@ -7,8 +7,9 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const AUTH_ERR = "AUTH_ERR";
 
-export const register = (_id, token) => ({
+export const register = (username, _id, token) => ({
   type: REGISTER,
+  username,
   _id,
   token
 });
@@ -17,18 +18,19 @@ export const startRegister = (username, email, password) => async dispatch => {
   const user = { username, email, password };
   try {
     const res = await axios.post("auth/register", user);
-    const { _id, tokens } = res.data;
+    const { username, _id, tokens } = res.data;
     const { token } = tokens[tokens.length - 1];
 
-    localStorage.setItem("user", JSON.stringify({ _id, token }));
-    dispatch(register(_id, token));
+    localStorage.setItem("user", JSON.stringify({ username, _id, token }));
+    dispatch(register(username, _id, token));
   } catch (err) {
     dispatch({ type: AUTH_ERR, error: errMessage("register", "user") });
   }
 };
 
-export const login = (_id, token) => ({
+export const login = (username, _id, token) => ({
   type: LOGIN,
+  username,
   _id,
   token
 });
@@ -37,10 +39,10 @@ export const startLogin = (email, password) => async dispatch => {
   const user = { email, password };
   try {
     const res = await axios.post("auth/login", user);
-    const { _id, tokens } = res.data;
+    const { username, _id, tokens } = res.data;
     const { token } = tokens[tokens.length - 1];
-    localStorage.setItem("user", JSON.stringify({ _id, token }));
-    dispatch(login(_id, token));
+    localStorage.setItem("user", JSON.stringify({ username, _id, token }));
+    dispatch(login(username, _id, token));
   } catch (err) {
     dispatch({ type: AUTH_ERR, error: errMessage("login", "user") });
   }

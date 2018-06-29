@@ -19,6 +19,8 @@ module.exports = app => {
     const { email, password } = req.body;
     try {
       const user = await User.findByCredentials(email, password);
+      if (!user) throw new Error({ msg: "User not found" });
+
       const token = await user.generateAuthToken();
       res.header("x-auth", token).send(user);
     } catch (err) {
@@ -28,8 +30,6 @@ module.exports = app => {
 
   app.delete("/auth/logout", isAuth, async (req, res) => {
     const { user, token } = req;
-    console.log(user, token);
-
     user.tokens = user.tokens.filter(t => t.token !== token);
     try {
       await user.save();

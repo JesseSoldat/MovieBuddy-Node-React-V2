@@ -52,7 +52,7 @@ const NavBar = ({ isAuth, startLogout }) => {
         </Link>
       </li>
       <li className="nav-item pb-sm-3 pb-md-0 mr-3">
-        <Link to="/match">
+        <Link to="/matches">
           <i className="fas fa-users mr-2" />
           Match
         </Link>

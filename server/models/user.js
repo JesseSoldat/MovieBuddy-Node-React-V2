@@ -55,8 +55,8 @@ UserSchema.pre("save", function(next) {
 UserSchema.methods.toJSON = function() {
   const user = this;
   const userObj = user.toObject();
-  const { _id, tokens } = userObj;
-  return { _id, tokens };
+  const { username, _id, tokens } = userObj;
+  return { username, _id, tokens };
 };
 
 UserSchema.methods.generateAuthToken = async function() {
@@ -85,7 +85,6 @@ UserSchema.statics.findByCredentials = async function(email, password) {
   const User = this;
   try {
     const user = await User.findOne({ email });
-
     if (!user) return Promise.reject({ msg: "User not found" });
 
     return new Promise((resolve, reject) => {
@@ -93,7 +92,9 @@ UserSchema.statics.findByCredentials = async function(email, password) {
         isMatch ? resolve(user) : reject(err);
       });
     });
-  } catch (err) {}
+  } catch (err) {
+    return err;
+  }
 };
 
 UserSchema.statics.findByToken = async function(token) {

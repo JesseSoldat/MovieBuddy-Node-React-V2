@@ -54,7 +54,7 @@ const Dashboard = () => {
               Find other people with a similar interest in movies and some new
               movies to your list.
             </p>
-            <Link to="/match" className="btn btn-outline-dark btn-block">
+            <Link to="/matches" className="btn btn-outline-dark btn-block">
               Match
             </Link>
           </div>

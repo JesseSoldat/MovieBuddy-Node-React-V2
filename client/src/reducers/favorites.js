@@ -21,6 +21,7 @@ export default (
       return { ...state, loading };
 
     case FAVORITES_ERR:
+      console.log("FAVORITES_ERR", error);
       return { ...state, loading: false, error };
 
     case ALL_FAVORITES:

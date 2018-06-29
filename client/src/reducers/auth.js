@@ -1,11 +1,12 @@
 import { REGISTER, LOGIN, LOGOUT, AUTH_ERR } from "../actions/auth";
-const initialState = { _id: null, token: null, error: null };
+const initialState = { username: null, _id: null, token: null, error: null };
 
 export default (state = initialState, action) => {
-  const { _id, token, error } = action;
+  const { username, _id, token, error } = action;
 
   switch (action.type) {
     case AUTH_ERR:
+      console.log("AUTH_ERR", error);
       return {
         ...state,
         error
@@ -14,6 +15,7 @@ export default (state = initialState, action) => {
     case REGISTER:
       return {
         ...state,
+        username,
         _id,
         token,
         error: null
@@ -22,6 +24,7 @@ export default (state = initialState, action) => {
     case LOGIN:
       return {
         ...state,
+        username,
         _id,
         token,
         error: null
@@ -30,6 +33,7 @@ export default (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
+        username: null,
         _id: null,
         token: null,
         error: null

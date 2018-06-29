@@ -33,6 +33,8 @@ export const startAddToFavorites = (
     dispatch(addToFavorites(res.data));
     if (type !== null) history.push("/favorites");
   } catch (err) {
+    console.log(err);
+
     dispatch({ type: FAVORITES_ERR, error: errMessage("post", "favorites") });
   }
 };
